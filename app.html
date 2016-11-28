@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.js"></script>
+<body>
+
+<div ng-app="tfos">
+<a href="#bob">Bob</a>
+<div ng-view></div>
+
+  Name <input type="text" ng-model="teen" ng-minlength="1" ng-maxlength="255">
+  Type  
+    <select ng-model="type">
+      <option value="human">human</option>
+      <option value="near human">near human</option>
+      <option value="not very near human">not very near human</option>
+      <option value="real weirdie">real weirdie</option>
+    </select>
+  Smarts <input type="number" ng-model="smarts" min="1" max="6"/>
+  Relationship With Parents <input type="number" ng-model="rwp" min="1" max="6"/>
+  Driving <input type="number" ng-model="driving" min="1" max="6"/>
+  Cool <input type="number" ng-model="cool" min="1" max="6"/>
+  Bod <input type="number" ng-model="bod" min="1" max="6"/>
+  Luck <input type="number" ng-model="luck" min="1" max="6"/>
+  Looks <input type="number" ng-model="looks" min="1" max="6"/>
+  Bonk <input type="number" ng-model="bonk" min="1" max="6"/>
+  {{teen}}
+  {{type}}
+  {{smarts}}
+  {{rwp}}
+  {{driving}}
+  {{cool}}
+  {{bod}}
+  {{luck}}
+  {{looks}}
+  {{bonk}}
+</div>
+<script>
+var app = angular.module("tfos", ["ngRoute"]);
+
+app.controller("tfosController", function($scope, $http) {
+  $http.get("teenager.json")
+  .then(function(response) {  
+    $scope.teen = repsonse.teen;
+    $scope.type = reponse.type;
+    $scope.smarts = repsonse.smarts;
+    $scope.rwp = response.data;
+    $scope.driving = response.driving;
+    $scope.cool = repsonse.cool;
+    $scope.bod = response.bod;
+    $scope.luck = response.luck;
+    $scope.looks = response.looks;
+    $scope.bonk = response.bonk;
+  });
+  app.config(function($routeProvider) { 
+    $routeProvider
+    .when("/", {
+      templateUrl: "main.html"
+    })
+    .when("/bob", {
+      template: "bob"
+    })
+  });
+});
+</script>
+</body>
+</html> 
